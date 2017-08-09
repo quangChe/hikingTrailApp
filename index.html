@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hiking Trail App</title>
+        <!-- Normalize CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.css">
+        <!-- Google Fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div id="options">
+            <div id="header">
+                <h1>My Hiking Trails List</h1>
+                <button id="showHikes" type="button">Show All Hikes</button>
+                <div id="filter">
+                    <label class="filterLabel" for="difficultySelect">Filter By Difficulty:</label>
+                    <select id="difficultySelect">
+                        <option value="Easy">Easy</option>
+                        <option value="Moderate">Moderate</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="hikeList">
+                <ul data-bind="foreach: hikeList">
+                    <li class="listItem">
+                        <h2 data-bind="text: name"></h2>
+                        <p class="difficulty" data-bind="text: difficulty, difficultyColor: difficulty"></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="map" class="hidden"></div>
+
+
+        <!-- jQuery -->
+        <script src="jquery-3.2.1.min.js"></script>
+        <!-- Knockout -->
+        <script src="knockout-3.4.2.js"></script>
+        <!-- Google Maps Configurations -->
+        <script src="maps.js"></script>
+        <!-- Google Maps API -->
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOq2GkRWo7C4gJkqBxHsKXAZQYig55Pdk&v=3&callback=initMap">
+        </script>
+        <!-- Custom JS -->
+        <script src="app.js"></script>
+    </body>
+</html>

@@ -1,0 +1,104 @@
+/* GENERAL STYLING */
+* {
+    font-family: "Oswald";
+}
+
+ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+
+/* MAP PANEL */
+
+#map {
+    bottom: 0px;
+    height: 100vh;
+    position: absolute;
+    right: 0px;
+    width: 78%;
+}
+
+/* OPTIONS PANEL */
+
+#options {
+    width: 22%;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    text-align: center;
+}
+
+#header {
+    border-bottom: 1px solid #eee;
+    height: 22vh;
+    padding-top: 10vh;
+    overflow: hidden;
+}
+
+h1 {
+    margin: 20px auto;
+    font-weight: 200;
+}
+
+#showHikes,
+#showHikes:focus {
+    font-family: "Oswald";
+    color: white;
+    font-size: 14px;
+    border: none;
+    background: #7FC77B;
+    border-radius: 20px;
+    padding: 5px 10px;
+    outline: none;
+}
+
+#showHikes:hover {
+    opacity: .3;
+    transition: .8s;
+    cursor: pointer;
+}
+
+#filter {
+    display: block;
+    margin: 20px auto;
+}
+
+.filterLabel {
+    margin: 5px auto;
+    font-size: .9em;
+}
+
+#difficultySelect {
+    border: none;
+    background: none;
+    outline: none;
+    font-family: inherit;
+    font-size: .8em;
+    margin: 5px auto;
+    display: block;
+}
+
+#hikeList {
+    height: 78vh;
+    overflow: scroll;
+}
+
+.listItem {
+    border-bottom: 1px solid #eee;
+}
+
+h2 {
+    margin-bottom: 0;
+}
+
+.difficulty {
+    font-weight: 200;
+    font-size: 12px;
+    background: #eee;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 4px 10px;
+    border-radius: 15px;
+}
