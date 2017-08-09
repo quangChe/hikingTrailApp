@@ -18,6 +18,7 @@
                 <div id="filter">
                     <label class="filterLabel" for="difficultySelect">Filter By Difficulty:</label>
                     <select id="difficultySelect">
+                        <option value="Null" selected>---</option>
                         <option value="Easy">Easy</option>
                         <option value="Moderate">Moderate</option>
                         <option value="Hard">Hard</option>
@@ -25,9 +26,9 @@
                 </div>
             </div>
 
-            <div id="hikeList">
+            <div id="hikes">
                 <ul data-bind="foreach: hikeList">
-                    <li class="listItem">
+                    <li class="listItem" data-bind="click: $parent.getInfoWindow">
                         <h2 data-bind="text: name"></h2>
                         <p class="difficulty" data-bind="text: difficulty, difficultyColor: difficulty"></p>
                     </li>

@@ -1,3 +1,4 @@
+// All the hikes' information
 var hikes = [
     {
         name: "Point Dume Cove",
@@ -24,7 +25,7 @@ var hikes = [
         difficulty: "Hard"
     },
     {
-        name: "Santa Ynez",
+        name: "Santa Ynez Trailhead",
         location: {lat: 34.07715965358875, lng: -118.56576329871294},
         distance: "2.2 miles",
         difficulty: "Easy"
@@ -61,6 +62,7 @@ var hikes = [
     }
 ];
 
+// Display details of each hike as observable
 function trailModel(data) {
     this.name = ko.observable(data.name);
     this.location = ko.observable(data.location);
@@ -68,6 +70,7 @@ function trailModel(data) {
     this.difficulty = ko.observable(data.difficulty);
 };
 
+// Controller function to handle events
 function viewModel() {
     var viewModel = this;
 
@@ -76,8 +79,13 @@ function viewModel() {
     hikes.forEach(function(trail){
         viewModel.hikeList.push(new trailModel(trail));
     });
+
+    this.getInfoWindow = function(trail) {
+        findMarker(trail.name());
+    }
 };
 
+// Custom binding handler to color code difficulty of hikes
 ko.bindingHandlers.difficultyColor = {
     init: function(element, valueAccessor) {
         var difficulty = valueAccessor();

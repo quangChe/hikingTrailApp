@@ -8,6 +8,9 @@ var map;
 // Global array of markers
 var markers = [];
 
+// Global infowindow object
+var infowindow;
+
 // Initialize map configurations
 function initMap() {
 
@@ -48,7 +51,7 @@ function initMap() {
         markers.push(marker);
         // Click listener to show infowindo
         marker.addListener('click', function(){
-            showInfoWindow(this, infoWindow);
+            showInfoWindow(this, infoWindow());
         });
         // Trigger marker's hover icon
         marker.addListener('mouseover', function(){
@@ -67,8 +70,7 @@ function initMap() {
     document.getElementById('showHikes').addEventListener('click', showMarkers);
 
 
-    // INFOWINDOW: initialization
-    var infoWindow = new google.maps.InfoWindow();
+
 }
 
 // =======================
@@ -85,34 +87,54 @@ function showMarkers() {
     map.fitBounds(boundary);
 }
 
+// INFOWINDOW: initialization
+function infoWindow() {
+    if (infowindow) {
+        infowindow.close();
+        infowindow = new google.maps.InfoWindow();
+        return infowindow;
+    } else {
+        infowindow = new google.maps.InfoWindow();
+        return infowindow;
+    }
+}
+
+// Render infowindow for a hiking trail when user clicks from list view
+function findMarker(trail) {
+    for (var i = 0; i < markers.length; i++) {
+        if (markers[i].title == trail) {
+            showInfoWindow(markers[i], infoWindow());
+        }
+    }
+}
+
 // Configure and display infowindow for selected marker
 function showInfoWindow(marker, infowindow) {
     if (infowindow.marker != marker) {
         infowindow.setContent('');
         infowindow.marker = marker;
 
-        infowindow.addListener('closeclick', function(){
-            infowindow.marker = null;
-        });
-
         // Get a hike's location to pass as search parameters for Yelp API
-        var lat;
-        var lng;
+        var location, distance;
 
         for (var i = 0; i < hikes.length; i++) {
             var hike = hikes[i]
             if (hike.name == marker.title) {
-                lat = String(hike.location.lat);
-                lng = String(hike.location.lng);
+                location = {
+                    lat: hike.location.lat,
+                    lng: hike.location.lng
+                };
+                distance = hike.distance;
             }
         }
 
-        // Foursquare venue info API
+        // Configure API route for Foursquare
         var now = new Date();
         var dateStr = now.toISOString().slice(0,10).replace(/-/g,"");
         var infoUrl = "https://api.foursquare.com/v2/venues/search?client_id=X3JOZJUYLFFFB22HKOYSX0FSX30LZFP0DRPUE2E2WP04MMFU&client_secret=I0L2CGALFX1S5DC0NWEUGKNMUUUTKHGGJXKPB2YSQJWBBDTB&section=trails&ll="
-            + lat + "," + lng + "&v=" + dateStr + "&query=" + marker.title;
+            + String(location.lat) + "," + String(location.lng) + "&v=" + dateStr + "&query=" + marker.title;
 
+        // Get venue info
         $.ajax({
             type: "GET",
             url: infoUrl,
@@ -127,20 +149,24 @@ function showInfoWindow(marker, infowindow) {
                 else {
                     var venue = data.response.venues[0];
                     var venueInfo = {
+                        name: marker.title,
                         location: venue.location.city + ", " + venue.location.state + " " + venue.location.postalCode,
                         checkins: venue.stats.checkinsCount,
+                        length: distance,
                         id: data.response.venues[0].id
-                    }
+                    };
                     getVenuePhoto(venueInfo);
                 }
             }
         });
 
-        // Foursquare photo API;
-        var photoUrl = "https://api.foursquare.com/v2/venues/" + marker.id + "/photos?&client_id=X3JOZJUYLFFFB22HKOYSX0FSX30LZFP0DRPUE2E2WP04MMFU&client_secret=I0L2CGALFX1S5DC0NWEUGKNMUUUTKHGGJXKPB2YSQJWBBDTB"
-            + "&v=" + dateStr;
-            
-        function(venue) {
+        // Get venue's photos
+        function getVenuePhoto(venue) {
+            // Foursquare photo API;
+            var photoUrl = "https://api.foursquare.com/v2/venues/" + venue.id + "/photos?&client_id=X3JOZJUYLFFFB22HKOYSX0FSX30LZFP0DRPUE2E2WP04MMFU&client_secret=I0L2CGALFX1S5DC0NWEUGKNMUUUTKHGGJXKPB2YSQJWBBDTB"
+                + "&v=" + dateStr;
+
+            // Grab photos url
             $.ajax({
                 type: "GET",
                 url: photoUrl,
@@ -153,14 +179,31 @@ function showInfoWindow(marker, infowindow) {
                         window.alert(data.meta.errorDetail);
                     }
                     else {
-
+                        var photos = data.response.photos.items;
+                        var album = '';
+                        for (var i = 0; i < photos.length; i++) {
+                            var url = photos[i].prefix + "720x480" + photos[i].suffix;
+                            album += '<a target="_blank" href="' + url + '"><img class="photos" src="' + url + '" alt="Hiking trail scenic image"></a>';
+                        }
+                        setInfoWindow(venue, album);
                     }
                 }
             });
         }
 
+        // Set the content inside the infowindow
+        function setInfoWindow(venue, album) {
+            infowindow.setContent('<div id="venueInfo">' + '<h3>' + venue.name + '</h3><p>'
+                + venue.location + '</p><p id="details"><span class="strong">Popularity:</span> ' + venue.checkins
+                + ' visitors</p><p><span class="strong">Hike Length:</span> ' + venue.length
+                + ' round trip</p></div><h4 class="albumHead">Visitor Photos:</h4><div id="venuePhotos">'
+                + album + '</div><p class="attribution"> Source: Foursquare API </p>'
+            );
+            infowindow.open(map, marker);
+        }
 
-        infowindow.setContent("This works!");
-        infowindow.open(map, marker);
+        infowindow.addListener('closeclick', function(){
+            infowindow.marker = null;
+        });
     }
 }

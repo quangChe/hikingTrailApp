@@ -79,13 +79,17 @@ h1 {
     display: block;
 }
 
-#hikeList {
+#hikes {
     height: 78vh;
     overflow: scroll;
 }
 
 .listItem {
     border-bottom: 1px solid #eee;
+}
+
+.listItem:hover {
+    cursor: pointer;
 }
 
 h2 {
@@ -101,4 +105,48 @@ h2 {
     margin-right: auto;
     padding: 4px 10px;
     border-radius: 15px;
+}
+
+/* INFOWINDOW */
+
+#venueInfo > * {
+    margin: 0;
+}
+
+#venueInfo h3 {
+    font-size: 20px;
+}
+
+#details {
+    margin-top: 10px;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+.albumHead {
+    margin-bottom: 0;
+    text-decoration: underline;
+}
+
+#venuePhotos {
+    height: 200px;
+    width: 400px;
+    overflow-y: scroll;
+    overflow: -moz-scrollbars-vertical;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.photos {
+    width: 120px;
+    height: 80px;
+    margin: 3px 5px;
+}
+
+.attribution {
+    font-size: .9em;
+    text-align: center;
+    font-style: italic;
 }
