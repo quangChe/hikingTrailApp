@@ -82,6 +82,7 @@ h1 {
 #hikes {
     height: 78vh;
     overflow: scroll;
+    background-color: rgba(233, 234, 220, 0.39);
 }
 
 .listItem {
@@ -146,7 +147,7 @@ h2 {
 }
 
 .attribution {
-    font-size: .9em;
+    font-size: .8em;
     text-align: center;
     font-style: italic;
 }
