@@ -78,18 +78,68 @@ function trailModel(data) {
     this.location = ko.observable(data.location);
     this.distance = ko.observable(data.distance);
     this.difficulty = ko.observable(data.difficulty);
+    this.id = ko.observable(data.id);
 };
 
-// Controller function to handle events
+// Controller to handle which hikes are displayed in options box
 function viewModel() {
     var viewModel = this;
 
+    // Observable array containing all the hikes
     this.hikeList = ko.observableArray([]);
 
+    // Pass each hike into above array
     hikes.forEach(function(trail){
         viewModel.hikeList.push(new trailModel(trail));
     });
 
+    // =======
+    // FILTERS
+    // =======
+
+    // All difficulty options displayed in dropdown
+    this.difficultyLevels = ko.observableArray(["Easy", "Moderate", "Hard"])
+    // Difficulty that user selected from drop down
+    this.selectedDifficulty = ko.observable('');
+
+
+    // Computed observable to provide trails that match selected difficulty
+    // (displays all by default)
+    this.displayedHikes = ko.computed(function(){
+        var filter = viewModel.selectedDifficulty();
+        // All
+        if (!filter) {
+            return viewModel.hikeList();
+        }
+        // Easy
+        if (filter == "Easy") {
+            return filterDifficulty("Easy");
+        }
+        // Moderate
+        if (filter == "Moderate") {
+            return filterDifficulty("Moderate");
+        }
+        // Hard
+        if (filter == "Hard") {
+            return filterDifficulty("Hard");
+        }
+    });
+
+    // Filter function to return all hikes based on difficulty level
+    function filterDifficulty(level) {
+        var filteredHikes = ko.observableArray([]);
+        for (var i = 0; i < viewModel.hikeList().length; i++) {
+            var hike = viewModel.hikeList()[i];
+            if (hike.difficulty() == level) {
+                filteredHikes.push(hike);
+            }
+        }
+        showSpecificMarkers(filteredHikes());
+        return filteredHikes();
+    }
+
+    // Function to display find marker and display infowindow
+    // when a listed hike in the options box is clicked
     this.getInfoWindow = function(trail) {
         findMarker(trail.name());
     }
@@ -101,13 +151,13 @@ ko.bindingHandlers.difficultyColor = {
         var difficulty = valueAccessor();
         var difficultyValue = ko.unwrap(difficulty);
         if (difficultyValue == "Easy") {
-            $(element).css("background-color", "#9AF495");
+            $(element).css("background-color", "#6bbd71");
         }
         if (difficultyValue == "Moderate") {
-            $(element).css("background-color", "#F3F495");
+            $(element).css("background-color", "#e5e670");
         }
         if (difficultyValue == "Hard") {
-            $(element).css("background-color", "#F49595");
+            $(element).css("background-color", "#e86e6e");
         }
     }
 };

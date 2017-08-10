@@ -17,8 +17,31 @@ function showAllMarkers() {
     map.fitBounds(boundary);
 }
 
-// Hide markers and change map's boundaries
-// function hideMarkers()
+// Hide all markers
+function hideAllMarkers() {
+    // Close any open infowindow before hiding all markers
+    if (infowindow) {
+        infowindow.close();
+    }
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+}
+
+// Show only specific markers
+function showSpecificMarkers(trailsToShow) {
+    hideAllMarkers();
+    var boundary = new google.maps.LatLngBounds();
+    for (var t = 0; t < trailsToShow.length; t++) {
+        for (var m = 0; m < markers.length; m++) {
+            if (markers[m].id == trailsToShow[t].id()) {
+                markers[m].setMap(map);
+                boundary.extend(markers[m].position);
+            }
+        }
+    }
+    map.fitBounds(boundary);
+}
 
 // Render infowindow for a hiking trail when user clicks from list in options box
 function findMarker(trail) {
@@ -45,7 +68,9 @@ function createInfoWindow() {
 // Configure and display infowindow for selected marker
 // and make API call to gather info
 function infoWindowInit(marker, infowindow) {
+    hideAllMarkers();
     if (infowindow.marker != marker) {
+        marker.setMap(map);
         infowindow.setContent('');
         infowindow.marker = marker;
 

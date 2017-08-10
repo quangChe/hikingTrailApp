@@ -21,17 +21,15 @@
                 <button id="showHikes" type="button">Show All Hikes</button>
                 <div id="filter">
                     <label class="filterLabel" for="difficultySelect">Filter By Difficulty:</label>
-                    <select id="difficultySelect">
-                        <option value="Null" selected>---</option>
-                        <option value="Easy">Easy</option>
-                        <option value="Moderate">Moderate</option>
-                        <option value="Hard">Hard</option>
-                    </select>
+                    <select id="difficultySelect"
+                            data-bind="options: difficultyLevels,
+                                       optionsCaption: 'Choose One',
+                                       value: selectedDifficulty"></select>
                 </div>
             </div>
 
             <div id="hikes">
-                <ul data-bind="foreach: hikeList">
+                <ul data-bind="foreach: displayedHikes">
                     <li class="listItem" data-bind="click: $parent.getInfoWindow">
                         <h2 data-bind="text: name"></h2>
                         <p class="difficulty" data-bind="text: difficulty, difficultyColor: difficulty"></p>
