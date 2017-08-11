@@ -2,15 +2,16 @@
 // Global helper functions
 // =======================
 
-// Today's date (for Foursquare API);
+// Today's date for getting most up-to-date Foursquare API version;
 var now = new Date();
 var dateStr = now.toISOString().slice(0,10).replace(/-/g,"");
 
-
 // Show markers and extend map's boundaries
 function showAllMarkers() {
+    hideAllMarkers();
     var boundary = new google.maps.LatLngBounds();
     for (var i = 0; i < markers.length; i++) {
+        markers[i].setAnimation(google.maps.Animation.DROP);
         markers[i].setMap(map);
         boundary.extend(markers[i].position);
     }
@@ -24,17 +25,19 @@ function hideAllMarkers() {
         infowindow.close();
     }
     for (var i = 0; i < markers.length; i++) {
+        markers[i].setIcon('default.png');
         markers[i].setMap(null);
     }
 }
 
-// Show only specific markers
+// Show specified markers for filtered trails
 function showSpecificMarkers(trailsToShow) {
     hideAllMarkers();
     var boundary = new google.maps.LatLngBounds();
     for (var t = 0; t < trailsToShow.length; t++) {
         for (var m = 0; m < markers.length; m++) {
             if (markers[m].id == trailsToShow[t].id()) {
+                markers[m].setAnimation(google.maps.Animation.DROP);
                 markers[m].setMap(map);
                 boundary.extend(markers[m].position);
             }
@@ -43,10 +46,11 @@ function showSpecificMarkers(trailsToShow) {
     map.fitBounds(boundary);
 }
 
-// Render infowindow for a hiking trail when user clicks from list in options box
+// Render infowindow when user clicks list item from options box
 function findMarker(trail) {
     for (var i = 0; i < markers.length; i++) {
         if (markers[i].title == trail) {
+            markers[i].setIcon('hover.png');
             infoWindowInit(markers[i], createInfoWindow());
         }
     }
@@ -70,6 +74,8 @@ function createInfoWindow() {
 function infoWindowInit(marker, infowindow) {
     hideAllMarkers();
     if (infowindow.marker != marker) {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        marker.setIcon('hover.png');
         marker.setMap(map);
         infowindow.setContent('');
         infowindow.marker = marker;
@@ -95,11 +101,13 @@ function infoWindowInit(marker, infowindow) {
 
         infowindow.addListener('closeclick', function(){
             infowindow.marker = null;
+            marker.setAnimation(null);
+            marker.setIcon('default.png');
         });
     }
 }
 
-// Ajax call to get venue info
+// Ajax call to get venue info from Foursquare API
 function getVenueInfo(marker, url) {
     $.ajax({
         type: "GET",
@@ -127,7 +135,7 @@ function getVenueInfo(marker, url) {
     });
 }
 
-// Get venue's photos from venue info
+// Get venue's photos from venue info from Foursquare API
 function getVenuePhoto(marker, venue) {
     var photoUrl = "https://api.foursquare.com/v2/venues/" + venue.id + "/photos?&client_id=X3JOZJUYLFFFB22HKOYSX0FSX30LZFP0DRPUE2E2WP04MMFU&client_secret=I0L2CGALFX1S5DC0NWEUGKNMUUUTKHGGJXKPB2YSQJWBBDTB"
         + "&v=" + dateStr;

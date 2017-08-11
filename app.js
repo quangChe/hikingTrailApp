@@ -93,21 +93,22 @@ function viewModel() {
         viewModel.hikeList.push(new trailModel(trail));
     });
 
-    // =======
-    // FILTERS
-    // =======
 
-    // All difficulty options displayed in dropdown
+    // =========
+    // FILTERING
+    // =========
+
+    // Display difficulty options in dropdown
     this.difficultyLevels = ko.observableArray(["Easy", "Moderate", "Hard"])
-    // Difficulty that user selected from drop down
+    // Grab value of difficulty that user selects
     this.selectedDifficulty = ko.observable('');
 
 
-    // Computed observable to provide trails that match selected difficulty
+    // Provide the right trails that match selected difficulty
     // (displays all by default)
     this.displayedHikes = ko.computed(function(){
         var filter = viewModel.selectedDifficulty();
-        // All
+        // Display all by default
         if (!filter) {
             return viewModel.hikeList();
         }
@@ -125,7 +126,7 @@ function viewModel() {
         }
     });
 
-    // Filter function to return all hikes based on difficulty level
+    // Filter function to pass the correct hikes into displayedHikes
     function filterDifficulty(level) {
         var filteredHikes = ko.observableArray([]);
         for (var i = 0; i < viewModel.hikeList().length; i++) {
@@ -138,10 +139,15 @@ function viewModel() {
         return filteredHikes();
     }
 
-    // Function to display find marker and display infowindow
+    // Function to find marker and display infowindow
     // when a listed hike in the options box is clicked
     this.getInfoWindow = function(trail) {
         findMarker(trail.name());
+    }
+
+    // Funciton to list all hikes when "Show All Hikes" button clicked
+    this.listAllHikes = function() {
+        viewModel.selectedDifficulty('');
     }
 };
 

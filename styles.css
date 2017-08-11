@@ -12,49 +12,50 @@ ul {
 /* MAP PANEL */
 
 #map {
+    border-top: solid 1px #777;
     bottom: 0px;
-    height: 100vh;
+    height: 75%;
     position: absolute;
-    right: 0px;
-    width: 78%;
+    width: 100%;
 }
 
 /* OPTIONS PANEL */
 
 #options {
-    width: 22%;
+    height: 25%;
+    min-height: 140px;
+    width: 100%;
     position: absolute;
-    left: 0px;
-    bottom: 0px;
+    top: 0px;
     text-align: center;
+    vertical-align: center;
 }
 
 #header {
-    height: 22vh;
-    padding-top: 10vh;
-    overflow: hidden;
+    height: 100%;
+    width: 40%;
     background-color: rgba(195, 195, 148, 0.55);
-    box-shadow: 0 8px 6px -6px #777;
-    -moz-box-shadow: 0 8px 6px -6px #777;
-    -webkit-box-shadow: 0 8px 6px -6px #777;
-    overflow: scroll;
+    float: left;
 }
 
-h1 {
-    margin: 20px auto;
+#title {
     font-weight: 300;
+    font-size: 14px;
     letter-spacing: 3px;
+    padding: 0px 10px;
+    word-spacing: 3px;
+    line-height: 1.5;
 }
 
 #showHikes,
 #showHikes:focus {
     font-family: "Oswald";
     color: white;
-    font-size: 14px;
+    font-size: 9px;
     border: none;
     background: #4bab62;
     border-radius: 20px;
-    padding: 5px 10px;
+    padding: 3px 6px;
     outline: none;
     box-shadow: 0 8px 6px -6px #777;
     -moz-box-shadow: 0 8px 6px -6px #777;
@@ -70,33 +71,29 @@ h1 {
     -webkit-box-shadow: none;
 }
 
-#filter {
-    display: block;
-    margin: 20px auto;
-}
-
-.filterLabel {
-    margin: 5px auto;
-    font-size: .8em;
-    letter-spacing: 1px;
-    font-weight: 200;
-}
 
 #difficultySelect {
     border: none;
     background: white;
     outline: none;
     font-family: inherit;
-    font-size: .8em;
-    margin: 5px auto;
+    font-size: 8px;
+    margin: 20px auto 10px auto;
     display: block;
     cursor: pointer;
 }
 
+/* Hikes List */
+
 #hikes {
-    height: 78vh;
+    height: 100%;
+    width: 60%;
+    float: right;
     overflow: scroll;
     background-color: rgba(233, 234, 220, 0.39);
+    box-shadow:  -2px 0 12px #777;
+    -moz-box-shadow:  -2px 0 12px  #777;
+    -webkit-box-shadow:  -2px 0 12px #777;
 }
 
 .listItem {
@@ -107,8 +104,9 @@ h1 {
     cursor: pointer;
 }
 
-h2 {
+.trailName {
     margin-bottom: 0;
+    font-size: 14px;
 }
 
 .difficulty {
@@ -122,6 +120,9 @@ h2 {
     border-radius: 15px;
     color: white;
 }
+
+
+
 
 /* INFOWINDOW */
 
@@ -167,3 +168,17 @@ h2 {
     font-style: italic;
     font-weight: 200;
 }
+
+/* MEDIA QUERIES */
+
+/*@media (max-width: 1475px) {
+    #title {
+        font-size: .8em;
+    }
+    #showHikes {
+        font-size: 12px;
+    }
+    .filterLabel {
+        font-size: .6em;
+    }
+}*/
