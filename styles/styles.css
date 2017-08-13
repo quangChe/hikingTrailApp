@@ -109,7 +109,6 @@ ul {
     -webkit-box-shadow: none;
 }
 
-
 #difficultySelect {
     border: none;
     background: white;
@@ -214,4 +213,159 @@ ul {
     text-align: center;
     font-style: italic;
     font-weight: 200;
+}
+
+/* Medium Mobile (Portrait) */
+
+@media and (orientation: portrait)
+and (min-width: 375px) and (max-width: 749px) {
+    #showHikes {
+        margin-top: 10px;
+        font-size: 18px;
+    }
+    #difficultySelect {
+        margin-top: 55px;
+        font-size: 14px;
+    }
+}
+
+/* Tablets (Portrait) */
+
+@media (orientation: portrait)
+and (min-width: 750px) and (max-width: 1000px) {
+    #options {
+        width: 420px;
+    }
+    #title {
+        padding-top: 50px;
+        font-size: 60px;
+    }
+    #logo {
+        width: 90px;
+    }
+    #showHikes {
+        font-size: 22px;
+    }
+    #difficultySelect {
+        margin-top: 140px;
+        font-size: 18px;
+    }
+    .trailName {
+        padding-top: 30px;
+        font-size: 24px;
+    }
+    .difficulty {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+}
+
+/* Large Tablets (Portrait) */
+
+@media (orientation: portrait)
+and (min-width: 1000px)  {
+    #options {
+        width: 600px;
+    }
+    #title {
+        padding-top: 80px;
+        font-size: 80px;
+    }
+    #logo {
+        width: 100px;
+    }
+    #showHikes {
+        margin-top: 20px;
+        font-size: 30px;
+    }
+    #difficultySelect {
+        margin-top: 170px;
+        font-size: 24px;
+    }
+    .trailName {
+        padding-top: 50px;
+        font-size: 30px;
+    }
+    .difficulty {
+        font-size: 24px;
+        margin-bottom: 50px;
+    }
+}
+
+/* Small and Medium Mobile (Landscape) */
+
+@media (orientation: landscape) {
+    #header {
+        height: 60%;
+    }
+    #hikes {
+        height: 40%;
+    }
+    #title {
+        font-size: 20px;
+    }
+    #logo {
+        width: 40px;
+    }
+    #showHikes {
+        font-size: 10px;
+    }
+    #difficultySelect {
+        font-size: 10px;
+    }
+}
+
+/* ONLY Medium Mobile (Landscape) */
+
+@media (orientation: landscape)
+and (min-width: 640px) and (max-width: 750px) {
+    #title {
+        font-size: 24px;
+    }
+    #logo {
+        width: 50px;
+    }
+    #showHikes {
+        font-size: 14px;
+    }
+    #difficultySelect {
+        margin-top: 60px;
+        font-size: 12px;
+    }
+}
+
+/* Tablets and Large Tablets (Landscape), Laptops, Desktops */
+
+@media (orientation: landscape)
+and (min-width: 751px) {
+    #options {
+        width: 420px;
+    }
+    #header {
+        height: 40%;
+    }
+    #hikes {
+        height: 50%;
+    }
+    #title {
+        font-size: 60px;
+    }
+    #logo {
+        width: 100px;
+    }
+    #showHikes {
+        font-size: 20px;
+    }
+    #difficultySelect {
+        margin-top: 60px;
+        font-size: 16px;
+    }
+    .trailName {
+        padding-top: 30px;
+        font-size: 20px;
+    }
+    .difficulty {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
 }
