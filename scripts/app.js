@@ -148,22 +148,32 @@ function viewModel() {
     // Funciton to list all hikes when "Show All Hikes" button clicked
     this.listAllHikes = function() {
         viewModel.selectedDifficulty('');
+        showAllMarkers();
+    }
+
+    // Opened nav view
+    this.navOpen = function() {
+        openNav();
+    }
+    // Closed nav view
+    this.navClose = function() {
+        closeNav();
     }
 };
 
-// Custom binding handler to color code difficulty of hikes
+// Custom color render based on difficulty of hikes
 ko.bindingHandlers.difficultyColor = {
     init: function(element, valueAccessor) {
         var difficulty = valueAccessor();
         var difficultyValue = ko.unwrap(difficulty);
         if (difficultyValue == "Easy") {
-            $(element).css("background-color", "#6bbd71");
+            $(element).css("color", "#6bbd71");
         }
         if (difficultyValue == "Moderate") {
-            $(element).css("background-color", "#e5e670");
+            $(element).css("color", "#e2b265");
         }
         if (difficultyValue == "Hard") {
-            $(element).css("background-color", "#e86e6e");
+            $(element).css("color", "#e86e6e");
         }
     }
 };

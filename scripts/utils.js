@@ -25,7 +25,7 @@ function hideAllMarkers() {
         infowindow.close();
     }
     for (var i = 0; i < markers.length; i++) {
-        markers[i].setIcon('default.png');
+        markers[i].setIcon('images/default.png');
         markers[i].setMap(null);
     }
 }
@@ -50,7 +50,7 @@ function showSpecificMarkers(trailsToShow) {
 function findMarker(trail) {
     for (var i = 0; i < markers.length; i++) {
         if (markers[i].title == trail) {
-            markers[i].setIcon('hover.png');
+            markers[i].setIcon('images/hover.png');
             infoWindowInit(markers[i], createInfoWindow());
         }
     }
@@ -75,7 +75,7 @@ function infoWindowInit(marker, infowindow) {
     hideAllMarkers();
     if (infowindow.marker != marker) {
         marker.setAnimation(google.maps.Animation.BOUNCE);
-        marker.setIcon('hover.png');
+        marker.setIcon('images/hover.png');
         marker.setMap(map);
         infowindow.setContent('');
         infowindow.marker = marker;
@@ -102,7 +102,7 @@ function infoWindowInit(marker, infowindow) {
         infowindow.addListener('closeclick', function(){
             infowindow.marker = null;
             marker.setAnimation(null);
-            marker.setIcon('default.png');
+            marker.setIcon('images/default.png');
         });
     }
 }

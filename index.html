@@ -11,47 +11,54 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.css">
         <!-- Google Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300">
+        <!-- Icons -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="styles/styles.css">
     </head>
     <body>
-        <div id="options">
-            <div id="header">
-                <h1 id="title">My Hiking Trails List</h1>
+        <button id="navBtn" type="button" data-bind="click: navOpen"><i class="fa fa-angle-left"></i></button>
+
+        <nav id="options">
+            <header id="header">
+                <button id="navClose" type="button" data-bind="click: navClose"><i class="fa fa-times"></i></button>
+
+                <h1 id="title">trails<img id="logo" src="images/icon.png" alt="Logo image"></h1>
                 <button id="showHikes"
                         type="button"
-                        data-bind="click: listAllHikes">Show All Hikes</button>
-                    <select id="difficultySelect"
-                            data-bind="options: difficultyLevels,
-                                       optionsCaption: 'Filter by Difficulty',
-                                       value: selectedDifficulty"></select>
-            </div>
+                        data-bind="click: listAllHikes">List All Hikes</button>
+                <select id="difficultySelect"
+                        data-bind="options: difficultyLevels,
+                                   optionsCaption: 'Filter by Difficulty',
+                                   value: selectedDifficulty"></select>
+            </header>
 
-            <div id="hikes">
+            <section id="hikes">
                 <ul data-bind="foreach: displayedHikes">
                     <li class="listItem" data-bind="click: $parent.getInfoWindow">
                         <h2 class="trailName" data-bind="text: name"></h2>
                         <p class="difficulty" data-bind="text: difficulty, difficultyColor: difficulty"></p>
                     </li>
                 </ul>
-            </div>
-        </div>
+            </section>
+        </nav>
 
-        <div id="map" class="hidden"></div>
+        <main id="map"></main>
 
 
         <!-- jQuery -->
-        <script src="jquery-3.2.1.min.js"></script>
+        <script src="scripts/lib/jquery-3.2.1.min.js"></script>
         <!-- Knockout -->
-        <script src="knockout-3.4.2.js"></script>
+        <script src="scripts/lib/knockout-3.4.2.js"></script>
         <!-- Google Maps Configurations -->
-        <script src="maps.js"></script>
+        <script src="scripts/maps.js"></script>
         <!-- Google Maps API -->
         <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOq2GkRWo7C4gJkqBxHsKXAZQYig55Pdk&v=3&callback=initMap">
         </script>
         <!-- Custom JS -->
-        <script src="utils.js"></script>
-        <script src="app.js"></script>
+        <script src="scripts/utils.js"></script>
+        <script src="scripts/app.js"></script>
+        <script src="scripts/styles.js"></script>
     </body>
 </html>

@@ -20,7 +20,6 @@ function initMap() {
 
     // MAP: configurations
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 34.053869, lng: -118.242721},
         styles: natureMap,
         zoom: 10,
         mapTypeControl: false
@@ -28,8 +27,8 @@ function initMap() {
 
 
     // MARKERS: img sources for markers
-    var defaultMarker = changeMarkerColor('default.png');
-    var hoverMarker = changeMarkerColor('hover.png');
+    var defaultMarker = changeMarkerColor('images/default.png');
+    var hoverMarker = changeMarkerColor('images/hover.png');
 
     // MARKERS: function to change marker icon
     function changeMarkerColor(img) {
@@ -68,10 +67,7 @@ function initMap() {
         });
     }
 
-    // MARKERS: render options
-    // 1. All markers display on load
+    // MARKERS: render all on load
     showAllMarkers();
-    // 2. Button to render all markers at any given time
-    document.getElementById('showHikes').addEventListener('click', showAllMarkers);
 
 }
