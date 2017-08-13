@@ -36,6 +36,7 @@ function viewModel() {
         var filter = viewModel.selectedDifficulty();
         // Display all by default
         if (!filter) {
+            showAllMarkers();
             return viewModel.hikeList();
         }
         // Easy

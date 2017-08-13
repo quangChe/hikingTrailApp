@@ -68,6 +68,6 @@ function initMap() {
     }
 
     // MARKERS: render all on load
-    showAllMarkers();
+    startAllMarkers();
 
 }
