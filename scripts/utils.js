@@ -102,7 +102,7 @@ function infoWindowInit(marker, infowindow) {
         infowindow.addListener('closeclick', function(){
             infowindow.marker = null;
             marker.setAnimation(null);
-            marker.setIcon('images/default.png');
+            showAllMarkers();
         });
     }
 }
@@ -170,7 +170,7 @@ function getVenuePhoto(marker, venue) {
 function displayInfoWindow(marker, venue, imgs) {
     infowindow.setContent('<div id="venueInfo">' + '<h3>' + venue.name + '</h3><p>'
         + venue.location + '</p><p id="details"><span class="strong">Popularity:</span> ' + venue.checkins
-        + ' visitors</p><p><span class="strong">Hike Length:</span> ' + venue.length
+        + ' visitors so far</p><p><span class="strong">Hike Length:</span> ' + venue.length
         + ' round trip</p></div><h4 class="albumHead">Visitor Photos:</h4><div id="venuePhotos">'
         + imgs + '</div><p class="attribution"> Source: Foursquare API </p>'
     );

@@ -20,7 +20,7 @@ ul {
     border: none;
     outline: none;
     cursor: pointer;
-    background-color: rgba(62, 124, 76, .8);
+    background-color: rgba(156, 137, 128, .8);
     color: white;
     padding: 10px;
     font-size: 80px;
@@ -34,7 +34,7 @@ ul {
 }
 
 #navBtn:hover {
-    background-color: rgba(62, 124, 76, 1);
+    background-color: rgba(156, 137, 128, 1);
 }
 
 #options {
@@ -149,7 +149,7 @@ ul {
 }
 
 .difficulty {
-    font-weight: 200;
+    font-weight: 300;
     font-size: 14px;
     display: table;
     margin-left: auto;
@@ -196,8 +196,7 @@ ul {
 #venuePhotos {
     height: 200px;
     width: 100%;
-    overflow-y: scroll;
-    overflow: -moz-scrollbars-vertical;
+    overflow: scroll;
     margin-top: 10px;
     margin-left: 10px;
 }
@@ -367,5 +366,24 @@ and (min-width: 751px) {
     .difficulty {
         font-size: 16px;
         margin-bottom: 30px;
+    }
+}
+
+/* ONLY Laptops, Desktops */
+@media (min-width: 1024px) {
+    #navClose:hover {
+        opacity: .5;
+        transition: .5s;
+    }
+    #showHikes:hover {
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        opacity: .5;
+        transition: .5s;
+    }
+    .listItem:hover {
+        background-color: rgba(233, 234, 220, .8);
+        transition: .5s;
     }
 }
