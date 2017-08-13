@@ -5,4 +5,4 @@ MVVM architecture of the app.
 
 ## How to Run the App:
 
-Download or clone this repository onto your local machine and open the **index.html** file in your browser.
+Download or clone this repository onto your local machine and open the **trails.html** file in your browser.
