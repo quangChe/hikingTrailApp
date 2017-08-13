@@ -28,7 +28,7 @@
                         type="button"
                         data-bind="click: listAllHikes">List All Hikes</button>
                 <select id="difficultySelect"
-                        data-bind="options: difficultyLevels,
+                        data-bind="options: difficultyOptions,
                                    optionsCaption: 'Filter by Difficulty',
                                    value: selectedDifficulty"></select>
             </header>
@@ -36,6 +36,7 @@
             <section id="hikes">
                 <ul data-bind="foreach: displayedHikes">
                     <li class="listItem" data-bind="click: $parent.getInfoWindow">
+                        <img class="trailImg" data-bind="attr:{src: photo}">
                         <h2 class="trailName" data-bind="text: name"></h2>
                         <p class="difficulty" data-bind="text: difficulty, difficultyColor: difficulty"></p>
                     </li>
@@ -56,9 +57,13 @@
         <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOq2GkRWo7C4gJkqBxHsKXAZQYig55Pdk&v=3&callback=initMap">
         </script>
-        <!-- Custom JS -->
-        <script src="scripts/utils.js"></script>
-        <script src="scripts/app.js"></script>
+        <!-- Custom Style JS -->
         <script src="scripts/styles.js"></script>
+        <!-- Data -->
+        <script src="scripts/data.js"></script>
+        <!-- Utility functions -->
+        <script src="scripts/utils.js"></script>
+        <!-- VM controller-->
+        <script src="scripts/app.js"></script>
     </body>
 </html>
