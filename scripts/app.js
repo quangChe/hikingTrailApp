@@ -79,7 +79,7 @@ function trailModel(data) {
     this.distance = ko.observable(data.distance);
     this.difficulty = ko.observable(data.difficulty);
     this.id = ko.observable(data.id);
-};
+}
 
 // Controller to handle which hikes are displayed in options box
 function viewModel() {
@@ -99,7 +99,7 @@ function viewModel() {
     // =========
 
     // Display difficulty options in dropdown
-    this.difficultyLevels = ko.observableArray(["Easy", "Moderate", "Hard"])
+    this.difficultyLevels = ko.observableArray(["Easy", "Moderate", "Hard"]);
     // Grab value of difficulty that user selects
     this.selectedDifficulty = ko.observable('');
 
@@ -143,23 +143,23 @@ function viewModel() {
     // when a listed hike in the options box is clicked
     this.getInfoWindow = function(trail) {
         findMarker(trail.name());
-    }
+    };
 
     // Funciton to list all hikes when "Show All Hikes" button clicked
     this.listAllHikes = function() {
         viewModel.selectedDifficulty('');
         showAllMarkers();
-    }
+    };
 
     // Opened nav view
     this.navOpen = function() {
         openNav();
-    }
+    };
     // Closed nav view
     this.navClose = function() {
         closeNav();
-    }
-};
+    };
+}
 
 // Custom color render based on difficulty of hikes
 ko.bindingHandlers.difficultyColor = {
