@@ -165,7 +165,7 @@ function getVenueInfo(marker, url) {
                 var venue = data.response.venues[0];
                 var venueInfo = {
                     name: marker.title,
-                    location: venue.location.city + ", " + venue.location.state + " " + venue.location.postalCode,
+                    location: venue.location.city + ", " + venue.location.state,
                     checkins: venue.stats.checkinsCount,
                     length: marker.distance,
                     id: data.response.venues[0].id
@@ -207,7 +207,7 @@ function getVenuePhoto(marker, venue) {
 function displayInfoWindow(marker, venue, imgs) {
     infowindow.setContent('<div id="venueInfo">' + '<h3>' + venue.name + '</h3><p>'
         + venue.location + '</p><p id="details"><span class="strong">Popularity:</span> ' + venue.checkins
-        + ' visitors so far</p><p><span class="strong">Hike Length:</span> ' + venue.length
+        + ' visitors checked in</p><p><span class="strong">Hike Length:</span> ' + venue.length
         + ' round trip</p></div><h4 class="albumHead">Visitor Photos:</h4><div id="venuePhotos">'
         + imgs + '</div><p class="attribution"> Source: Foursquare API </p>'
     );
