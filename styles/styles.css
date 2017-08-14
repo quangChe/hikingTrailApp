@@ -249,7 +249,7 @@ and (min-width: 375px) and (max-width: 749px) {
         font-size: 18px;
     }
     #difficultySelect {
-        margin-top: 55px;
+        margin-top: 50px;
         font-size: 14px;
     }
 }

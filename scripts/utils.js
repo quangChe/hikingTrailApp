@@ -47,7 +47,7 @@ function showSpecificMarkers(trailsToShow) {
     hideAllMarkers();
     for (var t = 0; t < trailsToShow.length; t++) {
         for (var m = 0; m < markers.length; m++) {
-            if (markers[m].id == trailsToShow[t].id()) {
+            if (markers[m].id == trailsToShow[t].id) {
                 markers[m].setAnimation(google.maps.Animation.DROP);
                 markers[m].setVisible(true);
             }
@@ -76,9 +76,6 @@ function createInfoWindow() {
         return infowindow;
     }
 }
-
-
-
 
 // Configure and display infowindow for selected marker
 // and make API call to gather info
@@ -119,34 +116,70 @@ function infoWindowInit(marker, infowindow) {
     }
 }
 
+// Custom error handling for Foursquare API responses
+function handleErrors(code, errorType) {
+    if (code == 400) {
+        return window.alert("Error " + String(code)
+        + ": Request failed due to invalid/missing search parameters, or this app"
+        + " may be unauthorized to make the request due to expired/missing credentials.");
+    }
+    if (code == 403) {
+        return window.alert("Error " + String(code)
+        + ": You are attempting to access information that that you are not authorized"
+        + " to see, or this app has reach its rate limit. Please try again in an hour.");
+    }
+    if (code == 404) {
+        return window.alert("Error " + String(code)
+        + ": The requested url could not be found because it has been removed"
+        + " or does not exist!");
+    }
+    if (code == 429) {
+        return window.alert("Error " + String(code)
+        + ": This app has exceeded the daily call quota set by Foursquare. No"
+        + " further requests can be fulfilled for today. Sorry for the inconvenience!");
+    }
+    if (code == 500) {
+        return window.alert("Error " + String(code)
+        + ": The request could not be fulfilled because the Foursquare server has"
+        + " timed out. Please try again later.");
+    }
+    // Foursquare may return 200 OK response for deprecated functionality
+    if (code == 200 && errorType !== undefined) {
+        return window.alert("Error: The request is accessing information/funcitonality"
+        + " that have been marked deprecated by Foursquare.");
+    }
+    if (code == 200 && errorType == undefined) {
+        return true;
+    }
+}
+
 // Ajax call to get venue info from Foursquare API
 function getVenueInfo(marker, url) {
     $.ajax({
         type: "GET",
         url: url,
         dataType: "jsonp",
-        // TODO: Error handling for Ajax requests to Foursquare API
-        error: function(jqXHR, exception) {
-            console.log(jqXHR);
-        },
         success: function(data) {
-            console.log(data)
-            // var venue = data.response.venues[0];
-            // var venueInfo = {
-            //     name: marker.title,
-            //     location: venue.location.city + ", " + venue.location.state + " " + venue.location.postalCode,
-            //     checkins: venue.stats.checkinsCount,
-            //     length: marker.distance,
-            //     id: data.response.venues[0].id
-            // };
-            // getVenuePhoto(marker, venueInfo);
+            var success = handleErrors(data.meta.code, data.meta.errorType);
+            if (success == true) {
+                var venue = data.response.venues[0];
+                var venueInfo = {
+                    name: marker.title,
+                    location: venue.location.city + ", " + venue.location.state + " " + venue.location.postalCode,
+                    checkins: venue.stats.checkinsCount,
+                    length: marker.distance,
+                    id: data.response.venues[0].id
+                };
+                getVenuePhoto(marker, venueInfo);
+            };
         }
     });
 }
 
 // Get venue's photos from venue info from Foursquare API
 function getVenuePhoto(marker, venue) {
-    var photoUrl = "https://api.foursquare.com/v2/venues/" + venue.id + "/photos?&client_id=X3JOZJUYLFFFB22HKOYSX0FSX30LZFP0DRPUE2E2WP04MMFU&client_secret=I0L2CGALFX1S5DC0NWEUGKNMUUUTKHGGJXKPB2YSQJWBBDTB"
+    var photoUrl = "https://api.foursquare.com/v2/venues/" + venue.id +
+    "/photos?&client_id=X3JOZJUYLFFFB22HKOYSX0FSX30LZFP0DRPUE2E2WP04MMFU&client_secret=I0L2CGALFX1S5DC0NWEUGKNMUUUTKHGGJXKPB2YSQJWBBDTB"
         + "&v=" + dateStr;
 
     // Grab photos url
@@ -154,19 +187,18 @@ function getVenuePhoto(marker, venue) {
         type: "GET",
         url: photoUrl,
         dataType: "jsonp",
-        // TODO: Error handling for Ajax requests to Foursquare API
-        error: function(error) {
-            console.log(error);
-        },
         success: function(data) {
-            var photoList = data.response.photos.items;
-            var imgs = '';
-            for (var i = 0; i < photoList.length; i++) {
-                var photo = photoList[i];
-                var url = photo.prefix + "720x480" + photo.suffix;
-                imgs += '<a target="_blank" href="' + url + '"><img class="photos" src="' + url + '" alt="Hiking trail scenic image"></a>';
+            var success = handleErrors(data.meta.code, data.meta.errorType);
+            if (success == true) {
+                var photoList = data.response.photos.items;
+                var imgs = '';
+                for (var i = 0; i < photoList.length; i++) {
+                    var photo = photoList[i];
+                    var url = photo.prefix + "720x480" + photo.suffix;
+                    imgs += '<a target="_blank" href="' + url + '"><img class="photos" src="' + url + '" alt="Hiking trail scenic image"></a>';
+                }
+                displayInfoWindow(marker, venue, imgs);
             }
-            displayInfoWindow(marker, venue, imgs);
         }
     });
 }

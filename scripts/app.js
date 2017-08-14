@@ -1,11 +1,11 @@
 // Display details of each hike as observable
 function trailModel(data) {
-    this.name = ko.observable(data.name);
-    this.location = ko.observable(data.location);
-    this.distance = ko.observable(data.distance);
-    this.difficulty = ko.observable(data.difficulty);
-    this.photo = ko.observable(data.photo);
-    this.id = ko.observable(data.id);
+    this.name = data.name;
+    this.location = data.location;
+    this.distance = data.distance;
+    this.difficulty = data.difficulty;
+    this.photo = data.photo;
+    this.id = data.id;
 }
 
 // Controller to handle which hikes are displayed in options box
@@ -58,7 +58,7 @@ function viewModel() {
         var filteredHikes = ko.observableArray([]);
         for (var i = 0; i < viewModel.hikeList().length; i++) {
             var hike = viewModel.hikeList()[i];
-            if (hike.difficulty() == level) {
+            if (hike.difficulty == level) {
                 filteredHikes.push(hike);
             }
         }
@@ -69,7 +69,7 @@ function viewModel() {
     // Function to find marker and display infowindow
     // when a listed hike in the options box is clicked
     this.getInfoWindow = function(trail) {
-        findMarker(trail.name());
+        findMarker(trail.name);
     };
 
     // Funciton to list all hikes when "Show All Hikes" button clicked
