@@ -8,17 +8,17 @@ var dateStr = now.toISOString().slice(0,10).replace(/-/g,"");
 
 // Initally render all markers on the map
 function startAllMarkers() {
-    var boundary = new google.maps.LatLngBounds();
+    bounds = new google.maps.LatLngBounds();
     for (var i = 0; i < markers.length; i++) {
         markers[i].setAnimation(google.maps.Animation.DROP);
         markers[i].setMap(map);
-        boundary.extend(markers[i].position);
+        bounds.extend(markers[i].position);
     }
     // Set boundary whenever all markers show
-    map.fitBounds(boundary);
+    map.fitBounds(bounds);
     // Set boundary whenever window resizes
     google.maps.event.addDomListener(window, 'resize', function() {
-        map.fitBounds(boundary);
+        map.fitBounds(bounds);
     });
 }
 
@@ -32,13 +32,21 @@ function hideAllMarkers() {
         markers[i].setIcon('images/default.png');
         markers[i].setVisible(false);
     }
+    map.fitBounds(bounds);
 }
 
 // Show visibility of all markers
 function showAllMarkers() {
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setAnimation(google.maps.Animation.DROP);
-        markers[i].setVisible(true);
+    if (infowindow) {
+        infowindow.close();
+    }
+    if (map) {
+        map.fitBounds(bounds);
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setAnimation(google.maps.Animation.DROP);
+            markers[i].setIcon('images/default.png');
+            markers[i].setVisible(true);
+        }
     }
 }
 
@@ -85,6 +93,8 @@ function infoWindowInit(marker, infowindow) {
         marker.setAnimation(google.maps.Animation.BOUNCE);
         marker.setIcon('images/hover.png');
         marker.setVisible(true);
+        map.setZoom(13);
+        map.setCenter(marker.getPosition());
         infowindow.setContent('');
         infowindow.marker = marker;
 
@@ -116,62 +126,28 @@ function infoWindowInit(marker, infowindow) {
     }
 }
 
-// Custom error handling for Foursquare API responses
-function handleErrors(code, errorType) {
-    if (code == 400) {
-        return window.alert("Error " + String(code)
-        + ": Request failed due to invalid/missing search parameters, or this app"
-        + " may be unauthorized to make the request due to expired/missing credentials.");
-    }
-    if (code == 403) {
-        return window.alert("Error " + String(code)
-        + ": You are attempting to access information that that you are not authorized"
-        + " to see, or this app has reach its rate limit. Please try again in an hour.");
-    }
-    if (code == 404) {
-        return window.alert("Error " + String(code)
-        + ": The requested url could not be found because it has been removed"
-        + " or does not exist!");
-    }
-    if (code == 429) {
-        return window.alert("Error " + String(code)
-        + ": This app has exceeded the daily call quota set by Foursquare. No"
-        + " further requests can be fulfilled for today. Sorry for the inconvenience!");
-    }
-    if (code == 500) {
-        return window.alert("Error " + String(code)
-        + ": The request could not be fulfilled because the Foursquare server has"
-        + " timed out. Please try again later.");
-    }
-    // Foursquare may return 200 OK response for deprecated functionality
-    if (code == 200 && errorType !== undefined) {
-        return window.alert("Error: The request is accessing information/funcitonality"
-        + " that have been marked deprecated by Foursquare.");
-    }
-    if (code == 200 && errorType == undefined) {
-        return true;
-    }
-}
-
 // Ajax call to get venue info from Foursquare API
 function getVenueInfo(marker, url) {
     $.ajax({
         type: "GET",
         url: url,
-        dataType: "jsonp",
+        dataType: "json",
         success: function(data) {
-            var success = handleErrors(data.meta.code, data.meta.errorType);
-            if (success == true) {
-                var venue = data.response.venues[0];
-                var venueInfo = {
-                    name: marker.title,
-                    location: venue.location.city + ", " + venue.location.state,
-                    checkins: venue.stats.checkinsCount,
-                    length: marker.distance,
-                    id: data.response.venues[0].id
-                };
-                getVenuePhoto(marker, venueInfo);
+            var venue = data.response.venues[0];
+            var venueInfo = {
+                name: marker.title,
+                location: venue.location.city + ", " + venue.location.state,
+                checkins: venue.stats.checkinsCount,
+                length: marker.distance,
+                id: data.response.venues[0].id
             };
+            getVenuePhoto(marker, venueInfo);
+        },
+        error: function(error) {
+            var errorInfo = JSON.parse(error.responseText);
+            window.alert("Uh oh! ERROR " + errorInfo.meta.code
+            + " occurred while trying to retrieve the trail's information! Message from Foursquare: "
+            + errorInfo.meta.errorDetail);
         }
     });
 }
@@ -186,19 +162,22 @@ function getVenuePhoto(marker, venue) {
     $.ajax({
         type: "GET",
         url: photoUrl,
-        dataType: "jsonp",
+        dataType: "json",
         success: function(data) {
-            var success = handleErrors(data.meta.code, data.meta.errorType);
-            if (success == true) {
-                var photoList = data.response.photos.items;
-                var imgs = '';
-                for (var i = 0; i < photoList.length; i++) {
-                    var photo = photoList[i];
-                    var url = photo.prefix + "720x480" + photo.suffix;
-                    imgs += '<a target="_blank" href="' + url + '"><img class="photos" src="' + url + '" alt="Hiking trail scenic image"></a>';
-                }
-                displayInfoWindow(marker, venue, imgs);
+            var photoList = data.response.photos.items;
+            var imgs = '';
+            for (var i = 0; i < photoList.length; i++) {
+                var photo = photoList[i];
+                var url = photo.prefix + "720x480" + photo.suffix;
+                imgs += '<a target="_blank" href="' + url + '"><img class="photos" src="' + url + '" alt="Hiking trail scenic image"></a>';
             }
+            displayInfoWindow(marker, venue, imgs);
+        },
+        error: function(error) {
+            var errorInfo = JSON.parse(error.responseText);
+            window.alert("Uh oh! ERROR " + errorInfo.meta.code
+            + " occurred while trying to retrieve the trail's photos! Message from Foursquare: "
+            + errorInfo.meta.errorDetail);
         }
     });
 }

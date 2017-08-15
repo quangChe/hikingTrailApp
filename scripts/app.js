@@ -9,7 +9,7 @@ function trailModel(data) {
 }
 
 // Controller to handle which hikes are displayed in options box
-function viewModel() {
+function ViewModel() {
     var viewModel = this;
 
     // Observable array containing all the hikes
@@ -97,4 +97,4 @@ ko.bindingHandlers.difficultyColor = {
     }
 };
 
-ko.applyBindings(new viewModel());
+ko.applyBindings(new ViewModel());

@@ -3,7 +3,7 @@
 // ==================
 
 // Global map and infowindow objects
-var map, infowindow
+var map, infowindow, bounds;
 
 // Global array of markers
 var markers = [];
