@@ -97,6 +97,8 @@ function infoWindowInit(marker, infowindow) {
         map.setCenter(marker.getPosition());
         infowindow.setContent('');
         infowindow.marker = marker;
+        infowindow.setContent('<i class="load-icon fa fa-spinner fa-pulse fa-3x fa-fw"></i><p class="load-msg">Retrieving info...</p>');
+        infowindow.open(map, marker);
 
         // Grab a hike's location to pass as search parameters for Yelp API
         var location, distance;
@@ -143,11 +145,8 @@ function getVenueInfo(marker, url) {
             };
             getVenuePhoto(marker, venueInfo);
         },
-        error: function(error) {
-            var errorInfo = JSON.parse(error.responseText);
-            window.alert("Uh oh! ERROR " + errorInfo.meta.code
-            + " occurred while trying to retrieve the trail's information! Message from Foursquare: "
-            + errorInfo.meta.errorDetail);
+        error: function() {
+            window.alert("Uh oh! An error occurred while trying to retrieve the trail's information from Foursquare!");
         }
     });
 }
@@ -173,22 +172,18 @@ function getVenuePhoto(marker, venue) {
             }
             displayInfoWindow(marker, venue, imgs);
         },
-        error: function(error) {
-            var errorInfo = JSON.parse(error.responseText);
-            window.alert("Uh oh! ERROR " + errorInfo.meta.code
-            + " occurred while trying to retrieve the trail's photos! Message from Foursquare: "
-            + errorInfo.meta.errorDetail);
+        error: function() {
+            window.alert("Uh oh! An error occurred while trying to retrieve the trail's photos from Foursquare!");
         }
     });
 }
 
 // Set the content inside the infowindow using compiled venue info
 function displayInfoWindow(marker, venue, imgs) {
-    infowindow.setContent('<div id="venueInfo">' + '<h3>' + venue.name + '</h3><p>'
+    infowindow.setContent('<div id="venue-info">' + '<h3>' + venue.name + '</h3><p>'
         + venue.location + '</p><p id="details"><span class="strong">Popularity:</span> ' + venue.checkins
         + ' visitors checked in</p><p><span class="strong">Hike Length:</span> ' + venue.length
-        + ' round trip</p></div><h4 class="albumHead">Visitor Photos:</h4><div id="venuePhotos">'
+        + ' round trip</p></div><h4 class="album-head">Visitor Photos:</h4><div id="venue-photos">'
         + imgs + '</div><p class="attribution"> Source: Foursquare API </p>'
     );
-    infowindow.open(map, marker);
 }

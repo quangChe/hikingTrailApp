@@ -17,17 +17,17 @@
         <link rel="stylesheet" href="styles/styles.css">
     </head>
     <body>
-        <button id="navBtn" type="button" data-bind="click: navOpen"><i class="fa fa-angle-left"></i></button>
+        <button id="nav-btn" type="button" data-bind="click: navOpen"><i class="fa fa-angle-left"></i></button>
 
         <nav id="options">
             <header id="header">
-                <button id="navClose" type="button" data-bind="click: navClose"><i class="fa fa-times"></i></button>
+                <button id="nav-close" type="button" data-bind="click: navClose"><i class="fa fa-times"></i></button>
 
                 <h1 id="title">trails<img id="logo" src="images/icon.png" alt="Logo image"></h1>
-                <button id="showHikes"
+                <button id="show-hikes"
                         type="button"
                         data-bind="click: listAllHikes">List All Hikes</button>
-                <select id="difficultySelect"
+                <select id="difficulty-select"
                         data-bind="options: difficultyOptions,
                                    optionsCaption: 'Filter by Difficulty',
                                    value: selectedDifficulty"></select>
@@ -35,9 +35,9 @@
 
             <section id="hikes">
                 <ul data-bind="foreach: displayedHikes">
-                    <li class="listItem" data-bind="click: $parent.getInfoWindow">
-                        <img class="trailImg" data-bind="attr:{src: photo}">
-                        <h2 class="trailName" data-bind="text: name"></h2>
+                    <li class="list-items" data-bind="click: $parent.getInfoWindow">
+                        <img class="trail-imgs" data-bind="attr:{src: photo}" alt="Sample tail image">
+                        <h2 class="trail-names" data-bind="text: name"></h2>
                         <p class="difficulty" data-bind="text: difficulty, difficultyColor: difficulty"></p>
                     </li>
                 </ul>
@@ -53,10 +53,10 @@
         <script src="scripts/lib/knockout-3.4.2.js"></script>
         <!-- Google Maps Configurations -->
         <script src="scripts/maps.js"></script>
-        <!-- Custom Style JS -->
-        <script src="scripts/styles.js"></script>
         <!-- Data -->
         <script src="scripts/data.js"></script>
+        <!-- Custom Style JS -->
+        <script src="scripts/styles.js"></script>
         <!-- Utility functions -->
         <script src="scripts/utils.js"></script>
         <!-- VM controller-->

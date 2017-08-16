@@ -16,7 +16,7 @@ ul {
 
 /* OPTIONS PANEL */
 
-#navBtn {
+#nav-btn {
     border: none;
     outline: none;
     cursor: pointer;
@@ -35,7 +35,7 @@ ul {
     box-shadow: 5px -5px 10px -2px #777;
 }
 
-#navBtn:hover {
+#nav-btn:hover {
     background-color: rgba(156, 137, 128, 1);
 }
 
@@ -64,7 +64,7 @@ ul {
     position: relative
 }
 
-#navClose {
+#nav-close {
     background: none;
     border: none;
     outline: none;
@@ -95,7 +95,7 @@ ul {
     display: inline;
 }
 
-#showHikes {
+#show-hikes {
     font-family: "Oswald";
     color: white;
     font-size: 14px;
@@ -113,7 +113,7 @@ ul {
     margin-top: 0;
 }
 
-#showHikes:active {
+#show-hikes:active {
     opacity: .5;
     -moz-box-shadow: none;
     -ms-box-shadow: none;
@@ -122,7 +122,7 @@ ul {
     box-shadow: none;
 }
 
-#difficultySelect {
+#difficulty-select {
     border: none;
     background: white;
     outline: none;
@@ -143,14 +143,14 @@ ul {
     background-color: rgba(233, 234, 220, 0.8);
 }
 
-.listItem {
+.list-items {
     border-bottom: 1px solid #aaa;
     cursor: pointer;
     height: 85px;
     text-align: left;
 }
 
-.listItem:active {
+.list-items:active {
     -moz-box-shadow: none;
     -ms-box-shadow: none;
     -o-box-shadow: none;
@@ -159,14 +159,14 @@ ul {
     background-color: rgba(233, 234, 220, 0.6);
 }
 
-.trailImg {
+.trail-imgs {
     width: 100px;
     height: 85px;
     float: left;
     margin-right: 20px;
 }
 
-.trailName {
+.trail-names {
     margin: 0;
     padding-top: 15px;
     font-size: 18px;
@@ -198,11 +198,19 @@ ul {
 
 /* INFOWINDOW */
 
-#venueInfo > * {
+.load-icon {
+    margin: 20px 40px 0px 50px;
+}
+
+.load-msg {
+    text-align: center;
+}
+
+#venue-info > * {
     margin: 0;
 }
 
-#venueInfo h3 {
+#venue-info h3 {
     font-size: 20px;
 }
 
@@ -214,12 +222,12 @@ ul {
     font-weight: bold;
 }
 
-.albumHead {
+.album-head {
     margin-bottom: 0;
     text-decoration: underline;
 }
 
-#venuePhotos {
+#venue-photos {
     height: 200px;
     width: 100%;
     overflow: scroll;
@@ -244,11 +252,11 @@ ul {
 
 @media and (orientation: portrait)
 and (min-width: 375px) and (max-width: 749px) {
-    #showHikes {
+    #show-hikes {
         margin-top: 10px;
         font-size: 18px;
     }
-    #difficultySelect {
+    #difficulty-select {
         margin-top: 50px;
         font-size: 14px;
     }
@@ -268,21 +276,21 @@ and (min-width: 750px) and (max-width: 1000px) {
     #logo {
         width: 90px;
     }
-    #showHikes {
+    #show-hikes {
         font-size: 22px;
     }
-    #difficultySelect {
+    #difficulty-select {
         margin-top: 140px;
         font-size: 18px;
     }
-    .listItem {
+    .list-items {
         height: 130px;
     }
-    .trailImg {
+    .trail-imgs {
         width: 190px;
         height: 130px;
     }
-    .trailName {
+    .trail-names {
         padding-top: 30px;
         font-size: 24px;
     }
@@ -306,22 +314,22 @@ and (min-width: 1000px)  {
     #logo {
         width: 100px;
     }
-    #showHikes {
+    #show-hikes {
         margin-top: 20px;
         font-size: 30px;
     }
-    #difficultySelect {
+    #difficulty-select {
         margin-top: 170px;
         font-size: 24px;
     }
-    .listItem {
+    .list-items {
         height: 190px;
     }
-    .trailImg {
+    .trail-imgs {
         width: 230px;
         height: 190px;
     }
-    .trailName {
+    .trail-names {
         padding-top: 50px;
         font-size: 30px;
     }
@@ -349,10 +357,10 @@ and (min-width: 1000px)  {
     #logo {
         width: 40px;
     }
-    #showHikes {
+    #show-hikes {
         font-size: 10px;
     }
-    #difficultySelect {
+    #difficulty-select {
         font-size: 10px;
     }
 }
@@ -367,10 +375,10 @@ and (min-width: 640px) and (max-width: 750px) {
     #logo {
         width: 50px;
     }
-    #showHikes {
+    #show-hikes {
         font-size: 14px;
     }
-    #difficultySelect {
+    #difficulty-select {
         margin-top: 60px;
         font-size: 12px;
     }
@@ -395,17 +403,17 @@ and (min-width: 751px) {
     #logo {
         width: 100px;
     }
-    #showHikes {
+    #show-hikes {
         font-size: 20px;
     }
-    #difficultySelect {
+    #difficulty-select {
         margin-top: 60px;
         font-size: 16px;
     }
-    .listItem {
+    .list-items {
         height: 130px;
     }
-    .trailImg {
+    .trail-imgs {
         width: 190px;
         height: 130px;
     }
