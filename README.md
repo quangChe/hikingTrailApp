@@ -1,4 +1,4 @@
-# Hiking Trail App ((https://www.google.com))
+# Hiking Trail App
 
 This app was created using Google Maps API for map functionality, Foursquare API for location data and KnockoutJS to manage the MVVM architecture of the app.
 
