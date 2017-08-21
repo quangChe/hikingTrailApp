@@ -6,6 +6,14 @@
 var now = new Date();
 var dateStr = now.toISOString().slice(0,10).replace(/-/g,"");
 
+// Icon setting
+function setTreeIcon(marker) {
+    return marker.setIcon('assets/imgs/default.png');
+}
+function setBootIcon(marker) {
+    return marker.setIcon('assets/imgs/hover.png');
+}
+
 // Initally render all markers on the map
 function startAllMarkers() {
     bounds = new google.maps.LatLngBounds();
@@ -29,7 +37,7 @@ function hideAllMarkers() {
         infowindow.close();
     }
     for (var i = 0; i < markers.length; i++) {
-        markers[i].setIcon('images/default.png');
+        setTreeIcon(markers[i]);
         markers[i].setVisible(false);
     }
     map.fitBounds(bounds);
@@ -44,7 +52,7 @@ function showAllMarkers() {
         map.fitBounds(bounds);
         for (var i = 0; i < markers.length; i++) {
             markers[i].setAnimation(google.maps.Animation.DROP);
-            markers[i].setIcon('images/default.png');
+            setTreeIcon(markers[i]);
             markers[i].setVisible(true);
         }
     }
@@ -67,7 +75,7 @@ function showSpecificMarkers(trailsToShow) {
 function findMarker(trail) {
     for (var i = 0; i < markers.length; i++) {
         if (markers[i].title == trail) {
-            markers[i].setIcon('images/hover.png');
+            setBootIcon(markers[i]);
             infoWindowInit(markers[i], createInfoWindow());
         }
     }
@@ -91,13 +99,13 @@ function infoWindowInit(marker, infowindow) {
     hideAllMarkers();
     if (infowindow.marker != marker) {
         marker.setAnimation(google.maps.Animation.BOUNCE);
-        marker.setIcon('images/hover.png');
+        setBootIcon(marker);
         marker.setVisible(true);
         map.setZoom(13);
         map.setCenter(marker.getPosition());
         infowindow.setContent('');
         infowindow.marker = marker;
-        infowindow.setContent('<i class="load-icon fa fa-spinner fa-pulse fa-3x fa-fw"></i><p class="load-msg">Retrieving info...</p>');
+        infowindow.setContent('<i class="load-icon fa fa-spinner fa-pulse fa-3x fa-fw"></i><p class="load-msg">Getting More Info...</p>');
         infowindow.open(map, marker);
 
         // Grab a hike's location to pass as search parameters for Yelp API
@@ -167,8 +175,8 @@ function getVenuePhoto(marker, venue) {
             var imgs = '';
             for (var i = 0; i < photoList.length; i++) {
                 var photo = photoList[i];
-                var url = photo.prefix + "720x480" + photo.suffix;
-                imgs += '<a target="_blank" href="' + url + '"><img class="photos" src="' + url + '" alt="Hiking trail scenic image"></a>';
+                var url = photo.prefix + "1080x720" + photo.suffix;
+                imgs += '<a href="' + url + '"><img class="photos" src="' + url + '" width="80" height="50" alt="Hiking trail scenic image"></a>';
             }
             displayInfoWindow(marker, venue, imgs);
         },
@@ -183,7 +191,7 @@ function displayInfoWindow(marker, venue, imgs) {
     infowindow.setContent('<div id="venue-info">' + '<h3>' + venue.name + '</h3><p>'
         + venue.location + '</p><p id="details"><span class="strong">Popularity:</span> ' + venue.checkins
         + ' visitors checked in</p><p><span class="strong">Hike Length:</span> ' + venue.length
-        + ' round trip</p></div><h4 class="album-head">Visitor Photos:</h4><div id="venue-photos">'
-        + imgs + '</div><p class="attribution"> Source: Foursquare API </p>'
+        + ' round trip</p></div><h4 class="album-head">Visitor Photos:</h4><div class="venue-gallery">'
+        + imgs + '</div><p class="attribution"> Source: Foursquare </p>'
     );
 }

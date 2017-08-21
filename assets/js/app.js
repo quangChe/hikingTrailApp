@@ -96,5 +96,3 @@ ko.bindingHandlers.difficultyColor = {
         difficultyColorRender(element, difficultyValue);
     }
 };
-
-ko.applyBindings(new ViewModel());

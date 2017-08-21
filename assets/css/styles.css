@@ -20,10 +20,11 @@ ul {
     border: none;
     outline: none;
     cursor: pointer;
-    background-color: rgba(156, 137, 128, .8);
+    background-color: rgb(156, 137, 128);
+    opacity: .7;
     color: white;
-    padding: 10px;
-    font-size: 80px;
+    padding: 20px;
+    font-size: 40px;
     position: absolute;
     right: 0;
     top: 10px;
@@ -36,7 +37,13 @@ ul {
 }
 
 #nav-btn:hover {
-    background-color: rgba(156, 137, 128, 1);
+    opacity: 1;
+}
+
+#sml-logo {
+    width: 50px;
+    vertical-align: bottom;
+    margin-left: 10px;
 }
 
 #options {
@@ -61,7 +68,8 @@ ul {
     width: 100%;
     background-color: rgba(195, 195, 148, .8);
     vertical-align: center;
-    position: relative
+    position: relative;
+    overflow: scroll;
 }
 
 #nav-close {
@@ -104,11 +112,11 @@ ul {
     padding: 5px 8px;
     font-weight: 200;
     outline: none;
-    -moz-box-shadow: 0 6px 3px -3px #777;
-    -ms-box-shadow: 0 6px 3px -3px #777;
-    -o-box-shadow: 0 6px 3px -3px #777;
-    -webkit-box-shadow: 0 6px 3px -3px #777;
-    box-shadow: 0 6px 3px -3px #777;
+    -moz-box-shadow: 4px 4px 0px #000;
+    -ms-box-shadow: 4px 4px 0px #000;
+    -o-box-shadow: 4px 4px 4px #000;
+    -webkit-box-shadow: 4px 4px 0px #000;
+    box-shadow: 4px 4px 0px #000;
     cursor: pointer;
     margin-top: 0;
 }
@@ -188,7 +196,6 @@ ul {
 /* MAP PANEL */
 
 #map {
-    border-top: solid 1px #e8e9db;
     bottom: 0px;
     height: 100%;
     position: absolute;
@@ -227,7 +234,7 @@ ul {
     text-decoration: underline;
 }
 
-#venue-photos {
+.venue-gallery {
     height: 200px;
     width: 100%;
     overflow: scroll;
@@ -236,8 +243,6 @@ ul {
 }
 
 .photos {
-    width: 80px;
-    height: 50px;
     margin: 3px 5px;
 }
 
@@ -257,7 +262,7 @@ and (min-width: 375px) and (max-width: 749px) {
         font-size: 18px;
     }
     #difficulty-select {
-        margin-top: 50px;
+        margin-top: 35px;
         font-size: 14px;
     }
 }
@@ -280,7 +285,7 @@ and (min-width: 750px) and (max-width: 1000px) {
         font-size: 22px;
     }
     #difficulty-select {
-        margin-top: 140px;
+        margin-top: 120px;
         font-size: 18px;
     }
     .list-items {
@@ -319,7 +324,7 @@ and (min-width: 1000px)  {
         font-size: 30px;
     }
     #difficulty-select {
-        margin-top: 170px;
+        margin-top: 140px;
         font-size: 24px;
     }
     .list-items {
@@ -379,7 +384,7 @@ and (min-width: 640px) and (max-width: 750px) {
         font-size: 14px;
     }
     #difficulty-select {
-        margin-top: 60px;
+        margin-top: 40px;
         font-size: 12px;
     }
 }
@@ -407,7 +412,7 @@ and (min-width: 751px) {
         font-size: 20px;
     }
     #difficulty-select {
-        margin-top: 60px;
+        margin-top: 40px;
         font-size: 16px;
     }
     .list-items {
@@ -417,7 +422,7 @@ and (min-width: 751px) {
         width: 190px;
         height: 130px;
     }
-    .trailName {
+    .trail-name {
         padding-top: 30px;
         font-size: 20px;
     }
@@ -429,18 +434,18 @@ and (min-width: 751px) {
 
 /* ONLY Laptops, Desktops */
 @media (min-width: 1024px) {
-    #navClose:hover {
+    #nav-close:hover {
         opacity: .5;
         transition: .5s;
     }
-    #showHikes:hover {
+    #show-hikes:hover {
         box-shadow: none;
         -moz-box-shadow: none;
         -webkit-box-shadow: none;
         opacity: .5;
         transition: .5s;
     }
-    .listItem:hover {
+    .list-item:hover {
         background-color: rgba(233, 234, 220, .8);
         transition: .5s;
     }

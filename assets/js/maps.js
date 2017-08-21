@@ -20,8 +20,8 @@ function initMap() {
 
 
     // MARKERS: img sources for markers
-    var defaultMarker = changeMarkerColor('images/default.png');
-    var hoverMarker = changeMarkerColor('images/hover.png');
+    var defaultMarker = changeMarkerColor('assets/imgs/default.png');
+    var hoverMarker = changeMarkerColor('assets/imgs/hover.png');
 
     // MARKERS: function to change marker icon
     function changeMarkerColor(img) {
@@ -62,6 +62,7 @@ function initMap() {
 
     // MARKERS: render all on load
     startAllMarkers();
+    ko.applyBindings(new ViewModel());
 }
 
 // If the map fails to load

@@ -13,17 +13,17 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300">
         <!-- Icons -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="styles/styles.css">
+        <!-- Custom Styles CSS -->
+        <link rel="stylesheet" href="assets/css/styles.css">
     </head>
     <body>
-        <button id="nav-btn" type="button" data-bind="click: navOpen"><i class="fa fa-angle-left"></i></button>
+        <button id="nav-btn" type="button" data-bind="click: navOpen"><i id="expand-icon" class="fa fa-angle-left"><img id="sml-logo" src="assets/imgs/icon.png" alt="Logo image"></i></button>
 
         <nav id="options">
             <header id="header">
                 <button id="nav-close" type="button" data-bind="click: navClose"><i class="fa fa-times"></i></button>
 
-                <h1 id="title">trails<img id="logo" src="images/icon.png" alt="Logo image"></h1>
+                <h1 id="title">trails<img id="logo" src="assets/imgs/icon.png" alt="Logo image"></h1>
                 <button id="show-hikes"
                         type="button"
                         data-bind="click: listAllHikes">List All Hikes</button>
@@ -36,7 +36,7 @@
             <section id="hikes">
                 <ul data-bind="foreach: displayedHikes">
                     <li class="list-items" data-bind="click: $parent.getInfoWindow">
-                        <img class="trail-imgs" data-bind="attr:{src: photo}" alt="Sample tail image">
+                        <img class="trail-imgs" data-bind="attr:{src: photo}" alt="Sample trail image">
                         <h2 class="trail-names" data-bind="text: name"></h2>
                         <p class="difficulty" data-bind="text: difficulty, difficultyColor: difficulty"></p>
                     </li>
@@ -48,19 +48,19 @@
 
 
         <!-- jQuery -->
-        <script src="scripts/lib/jquery-3.2.1.min.js"></script>
+        <script src="assets/lib/jquery-3.2.1.min.js"></script>
         <!-- Knockout -->
-        <script src="scripts/lib/knockout-3.4.2.js"></script>
-        <!-- Google Maps Configurations -->
-        <script src="scripts/maps.js"></script>
+        <script src="assets/lib/knockout-3.4.2.js"></script>
         <!-- Data -->
-        <script src="scripts/data.js"></script>
-        <!-- Custom Style JS -->
-        <script src="scripts/styles.js"></script>
+        <script src="assets/js/data.js"></script>
         <!-- Utility functions -->
-        <script src="scripts/utils.js"></script>
+        <script src="assets/js/utils.js"></script>
         <!-- VM controller-->
-        <script src="scripts/app.js"></script>
+        <script src="assets/js/app.js"></script>
+        <!-- Google Maps Configurations -->
+        <script src="assets/js/maps.js"></script>
+        <!-- Custom Styles Script -->
+        <script src="assets/js/styles.js"></script>
         <!-- Google Maps API -->
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOq2GkRWo7C4gJkqBxHsKXAZQYig55Pdk&v=3&callback=initMap"
             async defer onerror="mapError()">
