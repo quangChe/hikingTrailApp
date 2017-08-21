@@ -188,6 +188,7 @@ function getVenuePhoto(marker, venue) {
 
 // Set the content inside the infowindow using compiled venue info
 function displayInfoWindow(marker, venue, imgs) {
+    galleryInit();
     infowindow.setContent('<div id="venue-info">' + '<h3>' + venue.name + '</h3><p>'
         + venue.location + '</p><p id="details"><span class="strong">Popularity:</span> ' + venue.checkins
         + ' visitors checked in</p><p><span class="strong">Hike Length:</span> ' + venue.length
